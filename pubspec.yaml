@@ -1,7 +1,8 @@
 name: flutter_gettext
 description: A flutter package to use gettext translations in your app.
 version: 1.0.0
-homepage:
+repository: https://github.com/bschmalb/flutter_gettext
+issue_tracker: https://github.com/bschmalb/flutter_gettext/issues
 
 environment:
   sdk: '>=3.0.3 <4.0.0'
