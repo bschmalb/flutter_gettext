@@ -16,7 +16,7 @@ class PoCompiler {
   final int foldLength;
   final Table table;
 
-  PoCompiler(Map source, {this.foldLength = 76}) : table = Table(source);
+  PoCompiler(Map<String, dynamic> source, {this.foldLength = 76}) : table = Table(source);
 
   String compile() {
     final blocks = <StringBuffer>[];
@@ -24,7 +24,7 @@ class PoCompiler {
     if (table.translations[''] != null && table.translations['']![''] != null) {
       blocks.add(
         _drawBlock(
-          table.translations['']![''],
+          table.translations['']![''] as Map<String, dynamic>,
           msgstr: [generateHeader(table.headers)],
         ),
       );
@@ -36,19 +36,19 @@ class PoCompiler {
       }
 
       blocks.addAll(
-        messages.values.whereType<Map>().cast<Map>().map(_drawBlock),
+        messages.values.whereType<Map<String, dynamic>>().cast<Map<String, dynamic>>().map(_drawBlock),
       );
     });
 
     return blocks.join('\n\n');
   }
 
-  StringBuffer _drawBlock(Map block, {List<String>? msgstr}) {
+  StringBuffer _drawBlock(Map<String, dynamic> block, {List<String>? msgstr}) {
     assert(block['msgstr'] == null || block['msgstr'] is List);
-    final messages = List<String>.from(msgstr ?? block['msgstr']);
+    final messages = List<String>.from(msgstr ?? block['msgstr'] as List? ?? []);
 
     final iterables = [
-      _drawComments(block['comments'] ?? {}),
+      _drawComments(block['comments'] as Map<String, dynamic>? ?? {}),
       _addPOString('msgctxt', block['msgctxt']),
       _addPOString('msgid', block['msgid'] ?? ''),
     ];
@@ -93,13 +93,13 @@ class PoCompiler {
     }
   }
 
-  Iterable<String> _drawComments(Map comments) {
+  Iterable<String> _drawComments(Map<String, dynamic> comments) {
     return _commentTypes.entries.expand((entry) {
       final key = entry.key;
       final prefix = entry.value;
 
       assert(comments[key] == null || comments[key] is String);
-      final String comment = comments[key] ?? '';
+      final String comment = comments[key] as String? ?? '';
 
       if (comment.isEmpty) {
         return const Iterable<String>.empty();

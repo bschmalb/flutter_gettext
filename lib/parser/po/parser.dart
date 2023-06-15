@@ -49,7 +49,7 @@ class PoParser {
     final head = list.tryFind((item) => item['msgctxt'] == null);
 
     if (head != null && head['msgstr'] != null) {
-      final String comments = head['msgstr'].join('');
+      final String comments = (head['msgstr'] as List).join();
       headers.addEntries(
         comments.split('\n').where((line) => line.contains(': ')).map(
           (line) {
@@ -64,8 +64,8 @@ class PoParser {
     final translations = <String, Map<String, dynamic>>{};
 
     for (final item in list) {
-      final ctx = item['msgctxt'] ?? '';
-      final id = item['msgid'] ?? '';
+      final ctx = item['msgctxt'] as String? ?? '';
+      final id = item['msgid'] as String? ?? '';
 
       if (!translations.containsKey(ctx)) {
         translations[ctx] = <String, dynamic>{};

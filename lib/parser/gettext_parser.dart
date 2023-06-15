@@ -21,7 +21,7 @@ class _Po {
   }
 
   /// Converts [table] to a PO object
-  String compile(Map table) {
+  String compile(Map<String, dynamic> table) {
     final compiler = PoCompiler(table);
     return compiler.compile();
   }

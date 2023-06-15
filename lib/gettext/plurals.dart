@@ -2,7 +2,7 @@ typedef PluralFunc = int Function(int n);
 
 class Plural {
   final String name;
-  final List examples;
+  final List<dynamic> examples;
   final int nplurals;
   final String pluralsText;
   final PluralFunc pluralsFunc;

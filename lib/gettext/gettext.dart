@@ -9,7 +9,7 @@ class Gettext {
 
   Gettext({this.onWarning});
 
-  Function _pluralsFunc = (n) => 0;
+  int Function(int) _pluralsFunc = (n) => 0;
   String _locale = '';
   final String domain = 'messages';
 
@@ -52,8 +52,8 @@ class Gettext {
     assert(data['headers'] is Map<String, String>);
     assert(data['translations'] is Map<String, dynamic>);
     addTranslations(
-      data['headers']['language'],
-      data['translations'],
+      data['headers']['language'] as String,
+      data['translations'] as Map<String, dynamic>,
       domain: domain,
     );
   }
@@ -217,8 +217,8 @@ class Translations {
           value.forEach((msgid, json) {
             if (json is Map && json['msgstr'] is List) {
               values[msgid] = Translation(
-                json['msgstr'].map((row) => row.toString()).cast<String>().toList(),
-                comments: json['comments'],
+                (json['msgstr'] as List).map((row) => row.toString()).cast<String>().toList(),
+                comments: json['comments'] as Map<String, dynamic>?,
               );
             }
           });
