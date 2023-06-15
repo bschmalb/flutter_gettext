@@ -5,15 +5,15 @@ import 'package:flutter_gettext/parser/gettext_parser.dart';
 
 class GettextLocalizations {
   final _gt = Gettext(
-    onWarning: ((message) {
+    onWarning: (message) {
       if (kDebugMode) {
         final r = RegExp(r'^No translation was found for msgid "(.*)" in msgctxt "(.*)" and domain "(.*)"$');
         final matches = r.firstMatch(message);
-        var msgid = matches!.group(1);
+        final msgid = matches!.group(1);
         // ignore: avoid_print
         print('\nmsgid "$msgid"\nmsgstr ""\n \n');
       }
-    }),
+    },
   );
 
   GettextLocalizations.fromPO(String poContent) {

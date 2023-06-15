@@ -1,4 +1,84 @@
-include: package:flutter_lints/flutter.yaml
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+#include: package:very_good_analysis/analysis_options.yaml
+include: all_lint_rules.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/generated_plugin_registrant.dart"
+    - "build/**"
+    - "test/*"
+    - "integration_test/*"
+  errors:
+    missing_required_param: error
+    missing_return: error
+  language:
+    strict-casts: true
+    strict-raw-types: true
+    strict-inference: false
+  plugins:
+    #- dart_code_metrics
+    - custom_lint
+
+dart_code_metrics:
+  formatter:
+    indent: 0
+    line-length: 120
+    cascading-widget-extensions: true
+  extends:
+    - package:dart_code_metrics_presets/all.yaml
+  rules:
+    - prefer-static-class: false
+    - prefer-correct-identifier-length: false
+    - format-comment: false
+    - no-magic-number: false
+    - avoid-ignoring-return-values: false
+    - prefer-extracting-callbacks: false
+    - avoid-dynamic: false
+    - no-equal-arguments: false
+    - avoid-non-null-assertion: false
+    - newline-before-return: false
+    - prefer-moving-to-variable: false
+    - prefer-match-file-name: false
+    - avoid-late-keyword: false
+    - member-ordering:
+        alphabetize: false
+        order:
+          - constructors
+          - public-fields
+          - private-fields
+        widgets-order:
+          - const-fields
+          - static-methods
+          - final-fields
+          - constructor
+          - named-constructor
+          - init-state-method
+          - build-method
+          - did-change-dependencies-method
+          - did-update-widget-method
+          - dispose-method
+  metrics:
+    coupling-between-object-classes: 12
+    cyclomatic-complexity: 20
+    depth-of-inheritance-tree: 5
+    lines-of-code: 100
+    maximum-nesting-level: 5
+    number-of-added-methods: 10
+    number-of-external-imports: 5
+    number-of-implemented-interfaces: 5
+    number-of-imports: 10
+    number-of-methods: 10
+    number-of-overridden-methods: 10
+    number-of-used-widgets: 20
+    response-for-class: 55
+    source-lines-of-code: 200
+    tight-class-cohesion: 0.33
+    weighted-methods-per-class: 35
+    widgets-nesting-level: 10
+  metrics-exclude:
+    - test/**
+    - integration_test/*#
+    - build/**

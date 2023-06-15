@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'gettext_localizations.dart';
+import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
 
 extension ContextExt on BuildContext {
   String t(

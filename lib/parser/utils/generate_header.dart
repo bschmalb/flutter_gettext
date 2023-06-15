@@ -1,10 +1,10 @@
-import './upper_case_words.dart';
+import 'package:flutter_gettext/parser/utils/upper_case_words.dart';
 
 /// Joins a header object of key value pairs into a header string
 String generateHeader(Map headers) {
-  List lines = [];
+  final List lines = [];
 
-  for (var key in headers.keys) {
+  for (final key in headers.keys) {
     if (key.isNotEmpty) {
       lines.add('${upperCaseWords(key)}: ${(headers[key] ?? '').trim()}');
     }

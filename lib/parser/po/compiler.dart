@@ -3,11 +3,11 @@ import 'package:flutter_gettext/parser/utils/fold_line.dart';
 import 'package:flutter_gettext/parser/utils/generate_header.dart';
 
 const _commentTypes = {
-  "translator": "# ",
-  "reference": "#: ",
-  "extracted": "#. ",
-  "flag": "#, ",
-  "previous": "#| ",
+  'translator': '# ',
+  'reference': '#: ',
+  'extracted': '#. ',
+  'flag': '#, ',
+  'previous': '#| ',
 };
 
 final _lineBreak = RegExp(r'\r?\n|\r');
@@ -21,16 +21,18 @@ class PoCompiler {
   String compile() {
     final blocks = <StringBuffer>[];
 
-    if (table.translations[""] != null && table.translations[""]![""] != null) {
-      blocks.add(_drawBlock(
-        table.translations[""]![""],
-        msgstr: [generateHeader(table.headers)],
-      ));
+    if (table.translations[''] != null && table.translations['']![''] != null) {
+      blocks.add(
+        _drawBlock(
+          table.translations['']![''],
+          msgstr: [generateHeader(table.headers)],
+        ),
+      );
     }
 
     table.translations.forEach((msgctx, messages) {
-      if (msgctx == "") {
-        messages = Map.of(messages)..remove("");
+      if (msgctx == '') {
+        messages = Map.of(messages)..remove('');
       }
 
       blocks.addAll(
@@ -38,51 +40,51 @@ class PoCompiler {
       );
     });
 
-    return blocks.join("\n\n");
+    return blocks.join('\n\n');
   }
 
   StringBuffer _drawBlock(Map block, {List<String>? msgstr}) {
-    assert(block["msgstr"] == null || block["msgstr"] is List);
-    final messages = List<String>.from(msgstr ?? block["msgstr"]);
+    assert(block['msgstr'] == null || block['msgstr'] is List);
+    final messages = List<String>.from(msgstr ?? block['msgstr']);
 
     final iterables = [
-      _drawComments(block["comments"] ?? {}),
-      _addPOString('msgctxt', block["msgctxt"]),
-      _addPOString('msgid', block["msgid"] ?? ""),
+      _drawComments(block['comments'] ?? {}),
+      _addPOString('msgctxt', block['msgctxt']),
+      _addPOString('msgid', block['msgid'] ?? ''),
     ];
 
-    if (block["msgid_plural"] is String) {
-      iterables.add(_addPOString('msgid_plural', block["msgid_plural"]));
+    if (block['msgid_plural'] is String) {
+      iterables.add(_addPOString('msgid_plural', block['msgid_plural']));
 
       iterables.add(
         Iterable.generate(
           messages.length,
-          (index) => _addPOString("msgstr[$index]", messages[index]),
+          (index) => _addPOString('msgstr[$index]', messages[index]),
         ).expand((val) => val),
       );
     } else {
-      iterables.add(_addPOString('msgstr', messages.isEmpty ? "" : messages.first));
+      iterables.add(_addPOString('msgstr', messages.isEmpty ? '' : messages.first));
     }
 
     return StringBuffer()
       ..writeAll(
         _IterableZip(iterables),
-        "\n",
+        '\n',
       );
   }
 
   Iterable<String> _addPOString(String key, value) {
     if (value == null) return const Iterable.empty();
 
-    value = value
+    final newValue = value
         .toString()
         .replaceAll(r'\', r'\\')
         .replaceAll('"', r'\"')
-        .replaceAll("\t", r'\t')
-        .replaceAll("\r", r'\r')
-        .replaceAll("\n", r'\n');
+        .replaceAll('\t', r'\t')
+        .replaceAll('\r', r'\r')
+        .replaceAll('\n', r'\n');
 
-    final lines = foldLine(value);
+    final lines = foldLine(newValue);
 
     if (lines.length < 2) {
       return ['$key "${lines.first}"'];
@@ -97,7 +99,7 @@ class PoCompiler {
       final prefix = entry.value;
 
       assert(comments[key] == null || comments[key] is String);
-      final String comment = comments[key] ?? "";
+      final String comment = comments[key] ?? '';
 
       if (comment.isEmpty) {
         return const Iterable<String>.empty();

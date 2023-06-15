@@ -1,5 +1,3 @@
-library gettext_parser;
-
 import 'dart:convert';
 
 import 'package:flutter_gettext/parser/po/compiler.dart';

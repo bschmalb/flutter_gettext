@@ -1,5 +1,3 @@
-library gettext;
-
 import 'package:flutter_gettext/gettext/plurals.dart';
 
 typedef OnWarning = Function(String message);
@@ -51,11 +49,11 @@ class Gettext {
   /// [locale] A locale string
   /// [domain] A domain name
   void addLocale(Map<String, dynamic> data, {String domain = 'messages'}) {
-    assert(data["headers"] is Map<String, String>);
-    assert(data["translations"] is Map<String, dynamic>);
+    assert(data['headers'] is Map<String, String>);
+    assert(data['translations'] is Map<String, dynamic>);
     addTranslations(
-      data["headers"]["language"],
-      data["translations"],
+      data['headers']['language'],
+      data['translations'],
       domain: domain,
     );
   }
@@ -84,7 +82,6 @@ class Gettext {
     String domain = 'messages',
   }) {
     final catalog = catalogs[locale] ?? Catalog({});
-
     catalog.addTranslations(domain, Translations.fromJson(translations));
 
     setCatalog(locale, catalog);
@@ -112,7 +109,7 @@ class Gettext {
   }) {
     final translation = _getTranslation(domain ?? this.domain, msgctxt, msgid);
 
-    if (translation == null || translation.msgstr[0].isNotEmpty != true) {
+    if (translation == null || translation.msgstr[0].isEmpty) {
       _warn('No translation was found for '
           'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
       return msgid;
@@ -142,7 +139,7 @@ class Gettext {
 
     final index = _pluralsFunc(count);
 
-    if (translation == null || translation.msgstr.length <= index || translation.msgstr[index].isNotEmpty != true) {
+    if (translation == null || translation.msgstr.length <= index || translation.msgstr[index].isEmpty) {
       _warn('No translation was found for '
           'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
       return (count > 1) ? msgidPlural : msgid;
@@ -174,7 +171,7 @@ class Gettext {
     return locale.split(RegExp(r'[\-_]'))[0].toLowerCase();
   }
 
-  _warn(String message) => onWarning?.call(message);
+  void _warn(String message) => onWarning?.call(message);
 }
 
 /// Represents locale translations catalog
@@ -218,10 +215,10 @@ class Translations {
 
         if (value is Map<String, dynamic>) {
           value.forEach((msgid, json) {
-            if (json is Map && json["msgstr"] is List) {
+            if (json is Map && json['msgstr'] is List) {
               values[msgid] = Translation(
-                json["msgstr"].map((row) => row.toString()).cast<String>().toList(),
-                comments: json["comments"],
+                json['msgstr'].map((row) => row.toString()).cast<String>().toList(),
+                comments: json['comments'],
               );
             }
           });

@@ -21,15 +21,15 @@ class PoParser {
         final item = result.last;
 
         if (node is Comment) {
-          if (item["comments"] == null) {
-            item["comments"] = <String, String>{};
+          if (item['comments'] == null) {
+            item['comments'] = <String, String>{};
           }
 
-          item["comments"][node.type] = node.text;
+          item['comments'][node.type] = node.text;
         }
 
         if (node is Token) {
-          if (node.type == "msgstr") {
+          if (node.type == 'msgstr') {
             if (!item.containsKey(node.type)) {
               item[node.type] = <String>[];
             }
@@ -46,27 +46,26 @@ class PoParser {
 
     final headers = <String, String>{};
 
-    final head = list.tryFind((item) => item["msgctxt"] == null);
+    final head = list.tryFind((item) => item['msgctxt'] == null);
 
-    if (head != null && head["msgstr"] != null) {
-      final String comments = head["msgstr"].join("");
-      headers.addEntries(comments
-          .split("\n")
-          .where(
-            (line) => line.contains(": "),
-          )
-          .map((line) {
-        final delim = line.indexOf(": ");
-        final key = line.substring(0, delim).toLowerCase();
-        return MapEntry(key, line.substring(delim + 2));
-      }));
+    if (head != null && head['msgstr'] != null) {
+      final String comments = head['msgstr'].join('');
+      headers.addEntries(
+        comments.split('\n').where((line) => line.contains(': ')).map(
+          (line) {
+            final delim = line.indexOf(': ');
+            final key = line.substring(0, delim).toLowerCase();
+            return MapEntry(key, line.substring(delim + 2));
+          },
+        ),
+      );
     }
 
     final translations = <String, Map<String, dynamic>>{};
 
-    for (var item in list) {
-      final ctx = item["msgctxt"] ?? "";
-      final id = item["msgid"] ?? "";
+    for (final item in list) {
+      final ctx = item['msgctxt'] ?? '';
+      final id = item['msgid'] ?? '';
 
       if (!translations.containsKey(ctx)) {
         translations[ctx] = <String, dynamic>{};
@@ -76,9 +75,9 @@ class PoParser {
     }
 
     return {
-      "charset": charset,
-      "headers": headers,
-      "translations": translations,
+      'charset': charset,
+      'headers': headers,
+      'translations': translations,
     };
   }
 
@@ -95,15 +94,15 @@ class Node {
   bool combine(Node other) => false;
 
   static Node parse(String line) {
-    if (line == "") {
+    if (line == '') {
       return BlockEnd();
     }
 
-    if (line[0] == "#") {
+    if (line[0] == '#') {
       return Comment(line.substring(1).trim());
     }
 
-    if (line.startsWith("msg")) {
+    if (line.startsWith('msg')) {
       return Token(line);
     }
 
@@ -120,34 +119,34 @@ class Comment extends Node {
   late String type;
 
   Comment(this.text) {
-    if (text.length >= 2 && text[1] == " ") {
+    if (text.length >= 2 && text[1] == ' ') {
       switch (text[0]) {
-        case ":":
-          type = "reference";
+        case ':':
+          type = 'reference';
           text = text.substring(2);
           return;
-        case ".":
-          type = "extracted";
+        case '.':
+          type = 'extracted';
           text = text.substring(2);
           return;
-        case ",":
-          type = "flag";
+        case ',':
+          type = 'flag';
           text = text.substring(2);
           return;
-        case "|":
-          type = "previous";
+        case '|':
+          type = 'previous';
           text = text.substring(2);
           return;
       }
     }
 
-    type = "translator";
+    type = 'translator';
   }
 
   @override
   bool combine(Node other) {
     if (other is Comment && other.type == type) {
-      text += "\n${other.text}";
+      text += '\n${other.text}';
       return true;
     }
 
@@ -161,12 +160,12 @@ class Token extends Node {
   int index = 0;
 
   Token(String line) {
-    final pos = line.indexOf(" ");
+    final pos = line.indexOf(' ');
     type = line.substring(0, pos);
 
-    if (type.contains("[")) {
-      index = int.parse(type.substring(type.indexOf("[") + 1, type.indexOf("]")));
-      type = type.substring(0, type.indexOf("["));
+    if (type.contains('[')) {
+      index = int.parse(type.substring(type.indexOf('[') + 1, type.indexOf(']')));
+      type = type.substring(0, type.indexOf('['));
     }
 
     text = _unescape(line.substring(pos + 1).trim());
@@ -198,7 +197,7 @@ String _unescape(String text) {
     return text;
   }
 
-  text = text.substring(1, text.length - 1);
+  final newText = text.substring(1, text.length - 1);
 
-  return text.replaceAll('\\n', "\n").replaceAll("\\'", "'").replaceAll('\\"', '"').replaceAll('\\t', "\t");
+  return newText.replaceAll(r'\n', '\n').replaceAll(r"\'", "'").replaceAll(r'\"', '"').replaceAll(r'\t', '\t');
 }

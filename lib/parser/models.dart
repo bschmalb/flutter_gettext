@@ -1,14 +1,13 @@
 class Table {
   Map<String, String> headers = {};
   Map<String, Map<String, dynamic>> translations = {};
-  String charset = "";
+  String charset = '';
   String contentType = 'utf-8';
 
-  Table(Map table) {
-    assert(table["headers"] is Map && table["headers"].values.every((value) => value is String));
-    assert(table['translations'] is Map && table['translations'].values.every((value) => value is Map));
-
-    headers = Map.castFrom(table["headers"]);
+  Table(Map table)
+      : assert(table['headers'] is Map && table['headers'].values.every((value) => value is String)),
+        assert(table['translations'] is Map && table['translations'].values.every((value) => value is Map)) {
+    headers = Map.castFrom(table['headers']);
     translations = Map.castFrom(table['translations']);
 
     _handleCharset(table);
@@ -37,40 +36,6 @@ class Table {
 
     this.charset = charset;
     headers['content-type'] = '$contentType; ${params.join('; ')}';
-  }
-
-  void addString(String msgid, String msgstr) {
-    final Map translation = {};
-    String msgctxt, msgidPlural;
-
-    final ids = msgid.split('\u0004');
-    if (ids.length > 1) {
-      msgctxt = ids.first;
-      ids.removeAt(0);
-      translation['msgctxt'] = msgctxt;
-    } else {
-      msgctxt = '';
-    }
-    msgid = ids.join('\u0004');
-
-    final parts = msgid.split('\u0000');
-    msgid = parts.first;
-    parts.removeAt(0);
-
-    translation['msgid'] = msgid;
-    msgidPlural = parts.join('\u0000');
-
-    if (msgidPlural.isNotEmpty) {
-      translation['msgid_plural'] = msgidPlural;
-    }
-
-    translation['msgstr'] = msgstr.split('\u0000');
-
-    if (!translations.containsKey(msgctxt)) {
-      translations[msgctxt] = {};
-    }
-
-    translations[msgctxt]![msgid] = translation;
   }
 
   Map<String, dynamic> get toMap {

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'gettext_localizations.dart';
+import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
 
 class GettextLocalizationsDelegate extends LocalizationsDelegate<GettextLocalizations> {
-  GettextLocalizationsDelegate({this.defaultLanguage = "en"});
+  GettextLocalizationsDelegate({this.defaultLanguage = 'en'});
 
   final String defaultLanguage;
 
