@@ -1,0 +1,21 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Hello"
+msgstr "Hallo"
+
+msgid "Welcome to my app"
+msgstr "Willkommen in meiner App"
+
+msgid "You have {message_count} message"
+msgid_plural "You have {message_count} messages"
+msgstr[0] "Du hast {message_count} Nachricht"
+msgstr[1] "Du hast {message_count} Nachrichten"
+
+msgid "There is {0} apple"
+msgid_plural "There are {0} apples"
+msgstr[0] "Es gibt {0} Apfel"
+msgstr[1] "Es gibt {0} Äpfel"
