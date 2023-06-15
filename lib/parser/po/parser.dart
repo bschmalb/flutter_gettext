@@ -1,4 +1,4 @@
-import 'package:collection/collection.dart';
+import 'package:flutter_gettext/parser/utils/first_where_or_null.dart';
 
 class PoParser {
   final String data;
@@ -46,7 +46,7 @@ class PoParser {
 
     final headers = <String, String>{};
 
-    final head = list.firstWhereOrNull((item) => item["msgctxt"] == null);
+    final head = list.tryFind((item) => item["msgctxt"] == null);
 
     if (head != null && head["msgstr"] != null) {
       final String comments = head["msgstr"].join("");
