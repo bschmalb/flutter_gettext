@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
 
+/// Extension for BuildContext to get translations.
 extension ContextExt on BuildContext {
   String t(
     String key, {

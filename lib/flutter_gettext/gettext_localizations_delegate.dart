@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
 
+/// LocalizationsDelegate for GettextLocalizations
 class GettextLocalizationsDelegate extends LocalizationsDelegate<GettextLocalizations> {
   GettextLocalizationsDelegate({this.defaultLanguage = 'en'});
 
@@ -27,6 +28,7 @@ class GettextLocalizationsDelegate extends LocalizationsDelegate<GettextLocaliza
       }
     }
 
+    /// If no PO file was found, use default strings.
     if (poContent == '') {
       poContent = 'msgid ""\nmsgstr ""\n"Language: $defaultLanguage\\n"\n';
     }

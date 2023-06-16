@@ -1,4 +1,4 @@
-import 'package:flutter_gettext/parser/models.dart';
+import 'package:flutter_gettext/parser/models/table.dart';
 import 'package:flutter_gettext/parser/utils/fold_line.dart';
 import 'package:flutter_gettext/parser/utils/generate_header.dart';
 
@@ -12,6 +12,7 @@ const _commentTypes = {
 
 final _lineBreak = RegExp(r'\r?\n|\r');
 
+/// Compiles a PO file from a [Table] object
 class PoCompiler {
   final int foldLength;
   final Table table;

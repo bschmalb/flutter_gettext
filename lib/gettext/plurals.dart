@@ -1,5 +1,6 @@
 typedef PluralFunc = int Function(int n);
 
+/// Class to hold plural information
 class Plural {
   final String name;
   final List<dynamic> examples;
@@ -16,6 +17,7 @@ class Plural {
   });
 }
 
+/// Plural rules for all languages
 final Map<String, Plural> plurals = {
   'ach': Plural(
     name: 'Acholi',

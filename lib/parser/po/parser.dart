@@ -1,5 +1,6 @@
 import 'package:flutter_gettext/parser/utils/first_where_or_null.dart';
 
+/// Parses a PO file into a Map.
 class PoParser {
   final String data;
 
