@@ -1,3 +1,6 @@
+## 1.0.3
+* Migrate plugin to a package to remove platform-agnostic code
+
 ## 1.0.2
 * Add export of necessary classes and functions for usage in other modules
 * Implement better linting
