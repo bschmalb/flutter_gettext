@@ -1,6 +1,6 @@
 name: flutter_gettext
 description: A flutter package to use gettext translations with positional & named arguments.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/bschmalb/flutter_gettext
 issue_tracker: https://github.com/bschmalb/flutter_gettext/issues
 
@@ -13,28 +13,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  plugin_platform_interface: ^2.1.4
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter packages.
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.bastianschmalbach.flutter_gettext
-        pluginClass: FlutterGettextPlugin
-      ios:
-        pluginClass: FlutterGettextPlugin
-      linux:
-        pluginClass: FlutterGettextPlugin
-      macos:
-        pluginClass: FlutterGettextPlugin
-      windows:
-        pluginClass: FlutterGettextPluginCApi
