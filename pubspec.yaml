@@ -1,6 +1,6 @@
 name: flutter_gettext
 description: A flutter package to use gettext translations with positional & named arguments.
-version: 1.0.3
+version: 2.0.0
 repository: https://github.com/bschmalb/flutter_gettext
 issue_tracker: https://github.com/bschmalb/flutter_gettext/issues
 

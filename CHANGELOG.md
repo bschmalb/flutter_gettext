@@ -1,3 +1,8 @@
+## 2.0.0
+* **BREAKING CHANGE**:
+  * change name of translations function from `t` to `translate`
+* Implement widget tests for translations
+
 ## 1.0.3
 * Migrate plugin to a package to remove platform-agnostic code
 
