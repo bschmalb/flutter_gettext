@@ -1,21 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gettext/gettext/gettext.dart';
 import 'package:flutter_gettext/parser/gettext_parser.dart';
 
 /// A class that holds the translations
 class GettextLocalizations {
-  final _gt = Gettext(
-    onWarning: (message) {
-      if (kDebugMode) {
-        final r = RegExp(r'^No translation was found for msgid "(.*)" in msgctxt "(.*)" and domain "(.*)"$');
-        final matches = r.firstMatch(message);
-        final msgid = matches!.group(1);
-        // ignore: avoid_print
-        print('\nmsgid "$msgid"\nmsgstr ""\n \n');
-      }
-    },
-  );
+  final _gt = Gettext(onWarning: print);
 
   /// Write the translations from a PO file to the Gettext instance
   GettextLocalizations.fromPO(String poContent) {

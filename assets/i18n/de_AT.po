@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
-"language: de\n"
+"language: de_AT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Hello"
@@ -17,5 +17,5 @@ msgstr[1] "Du hast {message_count} Nachrichten"
 
 msgid "There is {0} apple"
 msgid_plural "There are {0} apples"
-msgstr[0] "Es gibt {0} Apfel"
-msgstr[1] "Es gibt {0} Äpfel"
+msgstr[0] "Es gibt {0} Apfeli"
+msgstr[1] "Es gibt {0} Äpfelies"
