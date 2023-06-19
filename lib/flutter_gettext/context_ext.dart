@@ -3,7 +3,7 @@ import 'package:flutter_gettext/flutter_gettext/gettext_localizations.dart';
 
 /// Extension for BuildContext to get translations.
 extension ContextExt on BuildContext {
-  String t(
+  String translate(
     String key, {
     String? keyPlural,
     List<Object>? pArgs,
@@ -11,7 +11,7 @@ extension ContextExt on BuildContext {
     String? domain,
     String msgctxt = '',
   }) {
-    return GettextLocalizations.of(this).t(
+    return GettextLocalizations.of(this).translate(
       key,
       keyPlural: keyPlural,
       pArgs: pArgs,

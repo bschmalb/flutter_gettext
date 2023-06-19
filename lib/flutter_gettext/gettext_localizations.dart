@@ -41,7 +41,7 @@ class GettextLocalizations {
   ///
   /// @throws ArgumentError if both pArgs and nArgs are provided
   /// @throws ArgumentError if keyPlural is provided but no count argument is provided
-  String t(
+  String translate(
     String key, {
     String? keyPlural,
     List<Object>? pArgs,

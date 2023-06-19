@@ -35,28 +35,28 @@ class App extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  context.t(
+                  context.translate(
                     'There is {0} apple',
                     keyPlural: 'There are {0} apples',
                     pArgs: [1],
                   ),
                 ),
                 Text(
-                  context.t(
+                  context.translate(
                     'There is {0} apple',
                     keyPlural: 'There are {0} apples',
                     pArgs: [2],
                   ),
                 ),
                 Text(
-                  context.t(
+                  context.translate(
                     'You have {message_count} message',
                     keyPlural: 'You have {message_count} messages',
                     nArgs: {'message_count': 1},
                   ),
                 ),
                 Text(
-                  context.t(
+                  context.translate(
                     'You have {message_count} message',
                     keyPlural: 'You have {message_count} messages',
                     nArgs: {'message_count': 3},
