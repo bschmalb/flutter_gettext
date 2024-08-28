@@ -110,8 +110,10 @@ class Gettext {
     final translation = _getTranslation(domain ?? this.domain, msgctxt, msgid);
 
     if (translation == null || translation.msgstr[0].isEmpty) {
-      _warn('No translation was found for '
-          'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
+      if (_locale != 'en') {
+        _warn('No translation was found for '
+            'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
+      }
       return msgid;
     }
 
@@ -140,8 +142,10 @@ class Gettext {
     final index = _pluralsFunc(count);
 
     if (translation == null || translation.msgstr.length <= index || translation.msgstr[index].isEmpty) {
-      _warn('No translation was found for '
-          'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
+      if (_locale != 'en') {
+        _warn('No translation was found for '
+            'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
+      }
       return (count > 1) ? msgidPlural : msgid;
     }
 
