@@ -1,3 +1,7 @@
+## 2.0.1
+* feat: disable error logging of missing translations in english, as the key is used as the translation  
+* fix: README.md example of translation function
+
 ## 2.0.0
 * **BREAKING CHANGE**:
   * change name of translations function from `t` to `translate`
