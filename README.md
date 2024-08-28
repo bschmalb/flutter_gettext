@@ -69,15 +69,15 @@ In files where you want to translate a string :
 ```dart
 import 'package:gettext_i18n/gettext_i18n.dart';
 
-Text(context.t('There is {0} apple', keyPlural: 'There are {0} apples', pArgs: [1]));
+Text(context.translate('There is {0} apple', keyPlural: 'There are {0} apples', pArgs: [1]));
 // output: There is 1 apple
 // output(de): Es gibt 1 Apfel
-Text(context.t('There is {0} apple', keyPlural: 'There are {0} apples', pArgs: [2]));
+Text(context.translate('There is {0} apple', keyPlural: 'There are {0} apples', pArgs: [2]));
 // output: There are 2 apples
 // output(de): Es gibt 2 Äpfel
 
 Text(
-  context.t(
+  context.translate(
     'You have {message_count} message',
     keyPlural: 'You have {message_count} messages',
     nArgs: {'message_count': 1},
@@ -87,7 +87,7 @@ Text(
 // output(de): Du hast 1 Nachricht
 
 Text(
-  context.t(
+  context.translate(
     'You have {message_count} message',
     keyPlural: 'You have {message_count} messages',
     nArgs: {'message_count': 3},
