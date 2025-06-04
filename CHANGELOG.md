@@ -1,3 +1,6 @@
+## NEXT
+* feat: update flutter sdk (to >=3.8.1 <4.0.0) to fix intl >0.19.0 error
+
 ## 2.0.2
 * feat: update flutter sdk (to >=3.0.6 <4.0.0) to fix intl error on newer flutter versions
 
