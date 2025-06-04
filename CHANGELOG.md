@@ -1,3 +1,6 @@
+## 2.0.2
+* feat: update flutter sdk (to >=3.0.6 <4.0.0) to fix intl error on newer flutter versions
+
 ## 2.0.1
 * feat: disable error logging of missing translations in english, as the key is used as the translation  
 * fix: README.md example of translation function
