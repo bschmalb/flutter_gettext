@@ -1,6 +1,7 @@
 ## 2.2.0
 
 - fix: use correct plural form for count=0 in default fallback (issue #2)
+- build(android): upgrade gradle, agp, and kotlin for compatibility with latest flutter sdk
 
 ## 2.1.0
 
