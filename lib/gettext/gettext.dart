@@ -146,7 +146,7 @@ class Gettext {
         _warn('No translation was found for '
             'msgid "$msgid" in msgctxt "$msgctxt" and domain "$domain"');
       }
-      return (count > 1) ? msgidPlural : msgid;
+      return (count != 1) ? msgidPlural : msgid;
     }
 
     return translation.msgstr[index];
