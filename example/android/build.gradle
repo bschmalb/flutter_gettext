@@ -1,17 +1,11 @@
-buildscript {
-    ext.kotlin_version = '1.7.10'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id "com.android.application" version "8.5.0" apply false
+    id "org.jetbrains.kotlin.android" version "1.9.24" apply false
+    id "dev.flutter.flutter-gradle-plugin" version "1.0.0" apply false
 }
 
 allprojects {
+    ext.kotlin_version = '1.9.24'
     repositories {
         google()
         mavenCentral()
