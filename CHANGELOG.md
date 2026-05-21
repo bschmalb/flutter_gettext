@@ -1,3 +1,11 @@
+## 2.3.0
+
+- fix: avoid `loadString` isolate decoding for large `.po` assets so widget tests do not hang.
+- fix: skip `<lang>_null.po` asset lookups when a locale has no country code.
+- fix: only reload gettext localizations when delegate configuration changes.
+- feat: allow missing-translation warnings to be redirected or silenced.
+- fix: clean up a PO compiler lint reported by `flutter analyze`.
+
 ## 2.2.0
 
 - fix: use correct plural form for count=0 in default fallback (issue #2)
