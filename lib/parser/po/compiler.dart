@@ -17,7 +17,8 @@ class PoCompiler {
   final int foldLength;
   final Table table;
 
-  PoCompiler(Map<String, dynamic> source, {this.foldLength = 76}) : table = Table(source);
+  PoCompiler(Map<String, dynamic> source, {this.foldLength = 76})
+    : table = Table(source);
 
   String compile() {
     final blocks = <StringBuffer>[];
@@ -32,12 +33,15 @@ class PoCompiler {
     }
 
     table.translations.forEach((msgctx, messages) {
-      if (msgctx == '') {
-        messages = Map.of(messages)..remove('');
-      }
+      final messagesToDraw = msgctx == ''
+          ? (Map.of(messages)..remove(''))
+          : messages;
 
       blocks.addAll(
-        messages.values.whereType<Map<String, dynamic>>().cast<Map<String, dynamic>>().map(_drawBlock),
+        messagesToDraw.values
+            .whereType<Map<String, dynamic>>()
+            .cast<Map<String, dynamic>>()
+            .map(_drawBlock),
       );
     });
 
@@ -46,7 +50,9 @@ class PoCompiler {
 
   StringBuffer _drawBlock(Map<String, dynamic> block, {List<String>? msgstr}) {
     assert(block['msgstr'] == null || block['msgstr'] is List);
-    final messages = List<String>.from(msgstr ?? block['msgstr'] as List? ?? []);
+    final messages = List<String>.from(
+      msgstr ?? block['msgstr'] as List? ?? [],
+    );
 
     final iterables = [
       _drawComments(block['comments'] as Map<String, dynamic>? ?? {}),
@@ -64,14 +70,12 @@ class PoCompiler {
         ).expand((val) => val),
       );
     } else {
-      iterables.add(_addPOString('msgstr', messages.isEmpty ? '' : messages.first));
+      iterables.add(
+        _addPOString('msgstr', messages.isEmpty ? '' : messages.first),
+      );
     }
 
-    return StringBuffer()
-      ..writeAll(
-        _IterableZip(iterables),
-        '\n',
-      );
+    return StringBuffer()..writeAll(_IterableZip(iterables), '\n');
   }
 
   Iterable<String> _addPOString(String key, value) {
