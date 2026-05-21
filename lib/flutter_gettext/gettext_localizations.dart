@@ -4,12 +4,31 @@ import 'package:flutter_gettext/parser/gettext_parser.dart';
 
 /// A class that holds the translations
 class GettextLocalizations {
-  final _gt = Gettext(onWarning: print);
-
-  /// Write the translations from a PO file to the Gettext instance
-  GettextLocalizations.fromPO(String poContent) {
+  /// Write the translations from a PO file [String] to the Gettext instance.
+  ///
+  /// [onWarning] receives a message for every msgid that has no translation
+  /// in a non-English locale. Defaults to [print]. Pass `null` to silence the
+  /// warnings, or your own sink to redirect them.
+  GettextLocalizations.fromPO(String poContent, {OnWarning? onWarning = print})
+    : _gt = Gettext(onWarning: onWarning) {
     _gt.addLocale(po.parse(poContent));
   }
+
+  /// Write the translations from raw PO file [bytes] to the Gettext instance.
+  ///
+  /// Decoding the bytes happens on the main isolate, which keeps loading
+  /// usable inside `flutter_test` (unlike `rootBundle.loadString`, which
+  /// offloads large assets to a background isolate).
+  ///
+  /// See [GettextLocalizations.fromPO] for the [onWarning] behavior.
+  GettextLocalizations.fromBytes(
+    List<int> bytes, {
+    OnWarning? onWarning = print,
+  }) : _gt = Gettext(onWarning: onWarning) {
+    _gt.addLocale(po.parseBytes(bytes));
+  }
+
+  final Gettext _gt;
 
   /// Getter for localizations of context
   static GettextLocalizations of(BuildContext context) =>
@@ -57,13 +76,23 @@ class GettextLocalizations {
 
     if (keyPlural != null) {
       /// return pluralised translation
-      final num? count = nArgs?.values.whereType<num?>().firstOrNull ?? pArgs?.whereType<num?>().firstOrNull;
+      final num? count =
+          nArgs?.values.whereType<num?>().firstOrNull ??
+          pArgs?.whereType<num?>().firstOrNull;
 
       if (count == null) {
-        throw ArgumentError('You must provide a count argument either as a named argument or as a positional argument');
+        throw ArgumentError(
+          'You must provide a count argument either as a named argument or as a positional argument',
+        );
       }
 
-      message = _gt.ngettext(key, keyPlural, count.toInt(), domain: domain, msgctxt: msgctxt);
+      message = _gt.ngettext(
+        key,
+        keyPlural,
+        count.toInt(),
+        domain: domain,
+        msgctxt: msgctxt,
+      );
     } else {
       /// return singular translation
       message = _gt.gettext(key, domain: domain, msgctxt: msgctxt);

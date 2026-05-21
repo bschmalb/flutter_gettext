@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: const [
             Locale('en'),
             Locale('de'),
-            Locale('de_AT'),
+            Locale('de', 'AT'),
         ],
         localizationsDelegates: [
             GettextLocalizationsDelegate(),
@@ -64,10 +64,19 @@ class MyApp extends StatelessWidget {
 }
 ```
 
+To silence or redirect missing-translation warnings, pass `onWarning`:
+
+```dart
+GettextLocalizationsDelegate(onWarning: null);
+GettextLocalizationsDelegate(onWarning: (message) => debugPrint(message));
+```
+
+By default, missing translations for non-English locales are written with `print`.
+
 In files where you want to translate a string :
 
 ```dart
-import 'package:gettext_i18n/gettext_i18n.dart';
+import 'package:flutter_gettext/flutter_gettext.dart';
 
 Text(context.translate('There is {0} apple', keyPlural: 'There are {0} apples', pArgs: [1]));
 // output: There is 1 apple
