@@ -4,47 +4,46 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  Widget app = buildMaterialApp(
-    'de',
-    (context) {
-      return Column(
-        children: [
-          Text(context.translate('Welcome to my app')),
-          Text(
-            context.translate(
-              'There is {0} apple',
-              keyPlural: 'There are {0} apples',
-              pArgs: [1],
-            ),
+  Widget app = buildMaterialApp('de', (context) {
+    return Column(
+      children: [
+        Text(context.translate('Welcome to my app')),
+        Text(
+          context.translate(
+            'There is {0} apple',
+            keyPlural: 'There are {0} apples',
+            pArgs: [1],
           ),
-          Text(
-            context.translate(
-              'There is {0} apple',
-              keyPlural: 'There are {0} apples',
-              pArgs: [2],
-            ),
+        ),
+        Text(
+          context.translate(
+            'There is {0} apple',
+            keyPlural: 'There are {0} apples',
+            pArgs: [2],
           ),
-          Text(
-            context.translate(
-              'You have {message_count} message',
-              keyPlural: 'You have {message_count} messages',
-              nArgs: {'message_count': 1},
-            ),
+        ),
+        Text(
+          context.translate(
+            'You have {message_count} message',
+            keyPlural: 'You have {message_count} messages',
+            nArgs: {'message_count': 1},
           ),
-          Text(
-            context.translate(
-              'You have {message_count} message',
-              keyPlural: 'You have {message_count} messages',
-              nArgs: {'message_count': 2},
-            ),
+        ),
+        Text(
+          context.translate(
+            'You have {message_count} message',
+            keyPlural: 'You have {message_count} messages',
+            nArgs: {'message_count': 2},
           ),
-        ],
-      );
-    },
-  );
+        ),
+      ],
+    );
+  });
 
   group('Translation test', () {
-    testWidgets('Test localization for one locale "de" with singular', (WidgetTester tester) async {
+    testWidgets('Test localization for one locale "de" with singular', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(app);
 
       await tester.pumpAndSettle();
@@ -62,11 +61,7 @@ void main() {
 Widget buildMaterialApp(String locale, WidgetBuilder child) {
   return MaterialApp(
     locale: Locale(locale),
-    supportedLocales: const [
-      Locale('de'),
-      Locale('de_AT'),
-      Locale('en'),
-    ],
+    supportedLocales: const [Locale('de'), Locale('de_AT'), Locale('en')],
     localizationsDelegates: [
       GettextLocalizationsDelegate(defaultLanguage: 'de'),
       GlobalMaterialLocalizations.delegate,
